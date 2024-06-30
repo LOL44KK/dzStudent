@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace dz8Sharic
+﻿namespace dz8Sharic
 {
     public class Student
     {
         private string _name;
         private string _surname;
         private DateTime _birthday;
-        private string _home_address;
-        private string _phone_number;
+        private string _homeAddress;
+        private string _phoneNumber;
         private List<int> _grades;
 
         public string Name
@@ -32,13 +26,13 @@ namespace dz8Sharic
         }
         public string HomeAddress
         {
-            get { return _home_address; }
-            set { _home_address = value; }
+            get { return _homeAddress; }
+            set { _homeAddress = value; }
         }
         public string PhoneNumber
         {
-            get { return _phone_number; }
-            set { _phone_number = value; }
+            get { return _phoneNumber; }
+            set { _phoneNumber = value; }
         }
         public List<int> Grades
         {
@@ -46,13 +40,28 @@ namespace dz8Sharic
             set { _grades = value; }
         }
 
+        public Student(Student obj)
+        {
+            _name = obj._name;
+            _surname = obj._surname;
+            _birthday = obj._birthday;
+            _homeAddress = obj._homeAddress;
+            _phoneNumber = obj._phoneNumber;
+
+            _grades = new List<int> {};
+            for (int i = 0; i < 3; i++)
+            {
+                _grades.Add(obj._grades[i]);
+            }
+        }
+
         public Student()
         {
             _name = "";
             _surname = "";
             _birthday = new DateTime(1970, 12, 12);
-            _home_address = "";
-            _phone_number = "";
+            _homeAddress = "";
+            _phoneNumber = "";
             _grades = new List<int>();
             for (int i = 0; i < 3; i++)
             {
@@ -65,8 +74,8 @@ namespace dz8Sharic
             _name = name;
             _surname = surname;
             _birthday = birthday;
-            _home_address = home_address;
-            _phone_number = phone_number;
+            _homeAddress = home_address;
+            _phoneNumber = phone_number;
             _grades = grades;
         }
 
@@ -75,8 +84,8 @@ namespace dz8Sharic
             _name = name;
             _surname = surname;
             _birthday = birthday;
-            _home_address = home_address;
-            _phone_number = phone_number;
+            _homeAddress = home_address;
+            _phoneNumber = phone_number;
             _grades = new List<int>();
             for (int i = 0; i < 3; i++)
             {
@@ -89,8 +98,8 @@ namespace dz8Sharic
             Console.WriteLine("Name: " + _name);
             Console.WriteLine("Surname: " + _surname);
             Console.WriteLine("Birthday: " + _birthday.Day + "." + _birthday.Month + "." + _birthday.Year);
-            Console.WriteLine("Home address: " + _home_address);
-            Console.WriteLine("Phone number: " + _phone_number);
+            Console.WriteLine("Home address: " + _homeAddress);
+            Console.WriteLine("Phone number: " + _phoneNumber);
             Console.WriteLine("Home work grade: " + _grades[0]);
             Console.WriteLine("Term papers grade: " + _grades[1]);
             Console.WriteLine("Exams grade: " + _grades[2]);
