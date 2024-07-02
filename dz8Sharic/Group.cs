@@ -73,9 +73,12 @@
 
         public void TransferStudent(Group where, int index)
         {
-            Student student = where._students[index];
-            where._students.RemoveAt(index);
-            _students.Add(student);
+            if (index > 0 && index < StudentCount)
+            {
+                Student student = where._students[index];
+                where._students.RemoveAt(index);
+                _students.Add(student);
+            }
         }
 
         public void ExpelAllWhoFailed()
