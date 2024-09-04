@@ -124,5 +124,31 @@
                 Console.WriteLine((i + 1) + ". " + sortedStudents[i].Name + " " + sortedStudents[i].Surname);
             }
         }
+
+        public static bool operator==(Group group1, Group group2)
+        {
+            if (group1._students.Count != group2._students.Count)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < group1._students.Count; i++)
+            {
+                if (group1._students[i] != group2._students[i])
+                {
+                    return false;
+                }
+            }
+
+            return
+                group1._name == group2._name &&
+                group1._specialization == group2._specialization &&
+                group1._courseNumber == group2._courseNumber;
+        }
+
+        public static bool operator !=(Group group1, Group group2)
+        {
+            return !(group1 == group2);
+        }
     }
 }

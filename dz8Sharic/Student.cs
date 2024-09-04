@@ -104,5 +104,53 @@
             Console.WriteLine("Term papers grade: " + _grades[1]);
             Console.WriteLine("Exams grade: " + _grades[2]);
         }
+
+        public static bool operator true(Student student)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (student._grades[i] < 3)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static bool operator false(Student student)
+        {
+            if (student)
+            {
+                return true;
+            } 
+            return false;
+        }
+
+        public static bool operator==(Student student1, Student student2)
+        {
+            return
+                student1._name == student2._name &&
+                student1._surname == student2._surname &&
+                student1._birthday == student2._birthday &&
+                student1._homeAddress == student2._homeAddress &&
+                student1._phoneNumber == student2._phoneNumber &&
+                student1._grades[0] == student2._grades[0] &&
+                student1._grades[1] == student2._grades[1] &&
+                student1._grades[2] == student2._grades[2];
+        }
+        public static bool operator !=(Student student1, Student student2)
+        {
+            return !(student1 == student2);
+        }
+
+        public static bool operator > (Student student1, Student student2)
+        {
+            return student1._grades.Average() > student2._grades.Average();
+        }
+
+        public static bool operator < (Student student1, Student student2)
+        {
+            return student1._grades.Average() < student2._grades.Average();
+        }
     }
 }
