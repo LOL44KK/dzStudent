@@ -1,6 +1,6 @@
 ﻿namespace dz8Sharic
 {
-    public class Student
+    public class Student : ICloneable, IComparable
     {
         private string _name;
         private string _surname;
@@ -105,6 +105,32 @@
             Console.WriteLine("Exams grade: " + _grades[2]);
         }
 
+        public object Clone()
+        {
+            List<int> newGrades = new List<int>();
+            foreach (int grad in _grades)
+            {
+                newGrades.Add(grad);
+            }
+            return new Student(
+                _name,
+                _surname,
+                _birthday,
+                _homeAddress,
+                _phoneNumber,
+                newGrades
+            );
+        }
+
+        public int CompareTo(object? obj)
+        {
+            if (obj == null)
+            {
+                return 1;
+            }
+            return _grades.Average().CompareTo(((Student)obj)._grades.Average());
+        }
+
         public static bool operator true(Student student)
         {
             for (int i = 0; i < 3; i++)
@@ -138,6 +164,7 @@
                 student1._grades[1] == student2._grades[1] &&
                 student1._grades[2] == student2._grades[2];
         }
+
         public static bool operator !=(Student student1, Student student2)
         {
             return !(student1 == student2);

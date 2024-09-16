@@ -1,4 +1,6 @@
-﻿ namespace dz8Sharic
+﻿using System.Numerics;
+
+namespace dz8Sharic
 {
     public class Program
     {
@@ -14,7 +16,7 @@
             Student student5 = new Student("Dmitro", "Antonov", new DateTime(), "asd", "asd", new List<int> { 5, 5, 5 });
             Student student6 = new Student("Ivan", "Mohov", new DateTime(), "asd", "asd", new List<int> { 1, 1, 2 });
             Student clone6Student = new Student("Ivan", "Mohov", new DateTime(), "asd", "asd", new List<int> { 1, 1, 2 });
-            
+
             p26.AddStudent(student1);
             p26.AddStudent(student2);
             p26.AddStudent(student3);
@@ -27,44 +29,19 @@
             p23.AddStudent(student5);
             p23.AddStudent(student6);
 
-            Group p26Clone = p26;
-
-            if (student2)
+            Console.WriteLine("TEST1 Sort Students");
+            Student[] sortStudent = p26.GetArrayStudents();
+            Array.Sort(sortStudent);
+            foreach (Student student in sortStudent)
             {
-                Console.WriteLine("1. TRUE");
-            }
-            else 
-            {
-                Console.WriteLine("1. FALSE");
+                student.ShowInfo();
+                Console.WriteLine();
             }
 
-            if (student6 == clone6Student)
-            {
-                Console.WriteLine("2. TRUE");
-            }
-            if (student6 != clone6Student)
-            {
-                Console.WriteLine("2. FALSE");
-            }
-
-            if (student1 > student6)
-            {
-                Console.WriteLine("3. TRUE");
-            }
-            if (student1 < student6)
-            {
-                Console.WriteLine("3. FALSE");
-            }
-
-
-            if (p26 == p26Clone)
-            {
-                Console.WriteLine("4. TRUE");
-            }
-            if (p26 != p23)
-            {
-                Console.WriteLine("5. TRUE");
-            }
+            Console.WriteLine("TEST2 Clone group");
+            Group p23Clone = (Group)p23.Clone();
+            student3.Name = "Nikita";
+            p23Clone.ShowAllStudent();
         }
     }
 }

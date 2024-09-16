@@ -7,7 +7,7 @@
         DRAWING
     }
 
-    public class Group
+    public class Group : ICloneable, IComparable
     {
         private string _name;
         private GroupSpecialization _specialization;
@@ -123,6 +123,31 @@
             {
                 Console.WriteLine((i + 1) + ". " + sortedStudents[i].Name + " " + sortedStudents[i].Surname);
             }
+        }
+
+        public Student[] GetArrayStudents()
+        {
+            return _students.ToArray();
+        }
+
+        public object Clone()
+        {
+            Group cloneGroup = new Group(_name, _specialization, _courseNumber);
+            foreach (Student student in _students)
+            {
+                cloneGroup.AddStudent((Student)student.Clone());
+            }
+            return cloneGroup;
+        }
+
+
+        public int CompareTo(object? obj)
+        {
+            if (obj == null)
+            {
+                return 1;
+            }
+            return StudentCount.CompareTo(((Group)obj).StudentCount);
         }
 
         public static bool operator==(Group group1, Group group2)
