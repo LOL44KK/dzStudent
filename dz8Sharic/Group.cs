@@ -1,4 +1,4 @@
-﻿namespace dz8Sharic
+﻿namespace dzStudent
 {
     public enum GroupSpecialization {
         NONE,
