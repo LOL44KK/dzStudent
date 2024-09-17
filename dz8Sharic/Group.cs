@@ -111,6 +111,11 @@
             _students.RemoveAt(index);
         }
 
+        public void SortStudent(IComparer<Student> comparer)
+        {
+            _students.Sort(comparer);
+        }
+
         public void ShowAllStudent()
         {
             Console.WriteLine("Group Name: " + _name);
@@ -140,7 +145,6 @@
             return cloneGroup;
         }
 
-
         public int CompareTo(object? obj)
         {
             if (obj == null)
@@ -148,6 +152,11 @@
                 return 1;
             }
             return StudentCount.CompareTo(((Group)obj).StudentCount);
+        }
+
+        public IEnumerator<Student> GetEnumerator()
+        {
+            return _students.GetEnumerator();
         }
 
         public static bool operator==(Group group1, Group group2)

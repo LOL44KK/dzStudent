@@ -15,7 +15,6 @@ namespace dzStudent
             Student student4 = new Student("Stas", "Hil", new DateTime(), "asd", "asd", new List<int> { 5, 5, 5 });
             Student student5 = new Student("Dmitro", "Antonov", new DateTime(), "asd", "asd", new List<int> { 5, 5, 5 });
             Student student6 = new Student("Ivan", "Mohov", new DateTime(), "asd", "asd", new List<int> { 1, 1, 2 });
-            Student clone6Student = new Student("Ivan", "Mohov", new DateTime(), "asd", "asd", new List<int> { 1, 1, 2 });
 
             p26.AddStudent(student1);
             p26.AddStudent(student2);
@@ -29,19 +28,11 @@ namespace dzStudent
             p23.AddStudent(student5);
             p23.AddStudent(student6);
 
-            Console.WriteLine("TEST1 Sort Students");
-            Student[] sortStudent = p26.GetArrayStudents();
-            Array.Sort(sortStudent);
-            foreach (Student student in sortStudent)
+            p26.SortStudent(new Student.NameComparer());
+            foreach (var student in p26)
             {
-                student.ShowInfo();
-                Console.WriteLine();
+                Console.WriteLine(student.Name);
             }
-
-            Console.WriteLine("TEST2 Clone group");
-            Group p23Clone = (Group)p23.Clone();
-            student3.Name = "Nikita";
-            p23Clone.ShowAllStudent();
         }
     }
 }

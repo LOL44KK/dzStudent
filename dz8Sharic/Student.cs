@@ -1,7 +1,27 @@
-﻿namespace dzStudent
+﻿using System.Collections;
+
+namespace dzStudent
 {
     public class Student : ICloneable, IComparable
     {
+        public class NameComparer : IComparer<Student>
+        {
+            public int Compare(Student? a, Student? b)
+            {
+                return a.Name.CompareTo(b.Name);
+            }
+        }
+
+        public class GradesComparer : IComparer<Student>
+        {
+            public int Compare(Student? a, Student? b)
+            {
+                if (a.Grades.Average() > b.Grades.Average()) return -1; 
+                if (a.Grades.Average() < b.Grades.Average()) return 1;
+                return 0;
+            }
+        }
+
         private string _name;
         private string _surname;
         private DateTime _birthday;
