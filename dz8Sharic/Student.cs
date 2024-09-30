@@ -2,8 +2,18 @@
 
 namespace dzStudent
 {
+    public enum GradeType
+    { 
+        HOMEWORK = 0,
+        TERMPAPERS,
+        EXAMS
+    }
+
+
     public class Student : ICloneable, IComparable
     {
+        public delegate void StudentDelegate(Student student, EventArgs eventArgs);
+
         public class NameComparer : IComparer<Student>
         {
             public int Compare(Student? a, Student? b)
@@ -60,6 +70,9 @@ namespace dzStudent
             set { _grades = value; }
         }
 
+        public event StudentDelegate UpdateGrades;
+        public event StudentDelegate PossibilityOfDismissal;
+
         public Student(Student obj)
         {
             _name = obj._name;
@@ -113,6 +126,21 @@ namespace dzStudent
             }
         }
 
+        public void UpdateGrade(GradeType gradeType, int grade)
+        {
+            _grades[(int)gradeType] = grade;
+            UpdateGrades?.Invoke(this, new EventArgs());
+            CheckPossibilityOfDismissal();
+        }
+
+        public void CheckPossibilityOfDismissal()
+        {
+            if (_grades.Average() < 2.0)
+            {
+                PossibilityOfDismissal?.Invoke(this, new EventArgs());
+            }
+        }
+
         public void ShowInfo()
         {
             Console.WriteLine("Name: " + _name);
@@ -120,9 +148,9 @@ namespace dzStudent
             Console.WriteLine("Birthday: " + _birthday.Day + "." + _birthday.Month + "." + _birthday.Year);
             Console.WriteLine("Home address: " + _homeAddress);
             Console.WriteLine("Phone number: " + _phoneNumber);
-            Console.WriteLine("Home work grade: " + _grades[0]);
-            Console.WriteLine("Term papers grade: " + _grades[1]);
-            Console.WriteLine("Exams grade: " + _grades[2]);
+            Console.WriteLine("Home work grade: " + _grades[(int)GradeType.HOMEWORK]);
+            Console.WriteLine("Term papers grade: " + _grades[(int)GradeType.TERMPAPERS]);
+            Console.WriteLine("Exams grade: " + _grades[(int)GradeType.EXAMS]);
         }
 
         public object Clone()

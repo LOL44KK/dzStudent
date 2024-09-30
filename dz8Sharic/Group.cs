@@ -7,8 +7,20 @@
         DRAWING
     }
 
+    public class StudentEventArgs : EventArgs
+    {
+        public Student Student { get; }
+
+        public StudentEventArgs(Student student)
+        {
+            Student = student;
+        }
+    }
+
     public class Group : ICloneable, IComparable
     {
+        public delegate void GroupDelegate(Group group, StudentEventArgs args);
+
         private string _name;
         private GroupSpecialization _specialization;
         private int _courseNumber;
@@ -36,6 +48,9 @@
         {
             get { return _students.Count; }
         }
+
+        public event GroupDelegate StudentAdded;
+        public event GroupDelegate StudentExpelled;
 
         public Group() 
         {
@@ -69,15 +84,17 @@
         public void AddStudent(Student student)
         {
             _students.Add(student);
+            StudentAdded?.Invoke(this, new StudentEventArgs(student));
         }
 
         public void TransferStudent(Group where, int index)
         {
-            if (index > 0 && index < StudentCount)
+            if (index >= 0 && index < StudentCount)
             {
                 Student student = where._students[index];
                 where._students.RemoveAt(index);
-                _students.Add(student);
+                StudentExpelled?.Invoke(this, new StudentEventArgs(student));
+                where.AddStudent(student);
             }
         }
 
@@ -89,7 +106,9 @@
                 {
                     if (_students[i].Grades[j] < 3)
                     {
+                        Student student = _students[i];
                         _students.RemoveAt(i);
+                        StudentExpelled?.Invoke(this, new StudentEventArgs(student));
                         break;
                     }
                 }
@@ -108,7 +127,9 @@
                     index = i;
                 }
             }
+            Student student = _students[index];
             _students.RemoveAt(index);
+            StudentExpelled?.Invoke(this, new StudentEventArgs(student));
         }
 
         public void SortStudent(IComparer<Student> comparer)
