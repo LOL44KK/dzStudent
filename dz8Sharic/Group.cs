@@ -49,6 +49,12 @@
             get { return _students.Count; }
         }
 
+        public List<Student> Students 
+        { 
+            get { return _students; }
+            init { _students = value; }
+        }
+
         public event GroupDelegate StudentAdded;
         public event GroupDelegate StudentExpelled;
 
@@ -149,11 +155,6 @@
             {
                 Console.WriteLine((i + 1) + ". " + sortedStudents[i].Name + " " + sortedStudents[i].Surname);
             }
-        }
-
-        public Student[] GetArrayStudents()
-        {
-            return _students.ToArray();
         }
 
         public object Clone()
